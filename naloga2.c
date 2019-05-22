@@ -1,38 +1,17 @@
-
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-
-#include "naloga2.h"
-
-int* skladnost(char* s, char* t, int* maks) {
-    int* niza = malloc(strlen(t) * sizeof(int));
-	
-	int maxi = 0;
-
-	for (int i = 0; i < strlen(t); i++) {
-	int br = 0;
-int p = i;
-		for (int j = 0; j < strlen(s); j++) {
-			if (p == strlen(t))
-				break;
-			if (t[p] != s[j]) {
-				break;
-			}
-			p++;
-			br++;
-		}
-	*(niza + i) = br;
-	if (br > maxi) {
-	maxi = br;
+int n, k;
+int rek(int last, int in, int b) {
+    if (b == 0)
+        return 1;
+    if (in == n)
+        return 0;
+    if (in - last > 1) 
+        return rek(in, in + 1, b - 1) + rek(last, in + 1, b); 
+    else 
+        return rek(last, in + 1, b);
 }
-	}
-*maks = maxi;
-    return niza;
-}
-
 int main() {
-    // koda za ro"cno testiranje (dopolnite po "zelji/potrebi)
+    scanf("%d %d", &n, &k);
+    printf("%d", rek(-2, 0, k));
     return 0;
 }
